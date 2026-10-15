@@ -1,463 +1,150 @@
 <!DOCTYPE html>
 <html lang="id" class="scroll-smooth">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rent It Campus - Platform Sewa Perangkat & Equipment Kampus</title>
-
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                    },
-                    colors: {
-                        brand: {
-                            teal: '#0d9488',
-                            tealDark: '#0f766e',
-                            navy: '#0f172a',
-                            slate: '#1e293b',
-                            accent: '#14b8a6'
-                        }
-                    }
-                }
-            }
-        }
-    </script>
-
-    <!-- Google Fonts Inter -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
-    
-    <!-- FontAwesome 6 Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="css/style.css">
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rent It Campus - Platform Sewa Perangkat & Equipment Kampus</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>tailwind.config={theme:{extend:{fontFamily:{sans:['Inter','sans-serif']},colors:{brand:{teal:'#0d9488',tealDark:'#0f766e',navy:'#0f172a',slate:'#1e293b',accent:'#14b8a6'}}}}}</script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="css/style.css">
 </head>
 <body class="bg-slate-50 text-slate-800 font-sans antialiased flex flex-col min-h-screen">
+<div id="toast-container" class="fixed top-24 right-5 z-[110] flex flex-col space-y-3 pointer-events-none"></div>
 
-    <!-- Toast Notification Container -->
-    <div id="toast-container" class="fixed top-24 right-5 z-[110] flex flex-col space-y-3 pointer-events-none"></div>
+<nav class="fixed w-full z-50 bg-white/90 backdrop-blur-md border-b border-slate-200/80">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex justify-between items-center h-20">
+<a href="#beranda" class="flex items-center space-x-3"><div class="w-11 h-11 bg-gradient-to-tr from-brand-teal to-teal-400 rounded-2xl flex items-center justify-center"><i class="fa-solid fa-laptop-code text-white text-xl"></i></div><div><span class="font-extrabold text-xl text-brand-navy block">RENT IT <span class="text-brand-teal">CAMPUS</span></span><span class="text-[10px] text-slate-400 uppercase block -mt-1">Equipment Sharing Platform</span></div></a>
+<div class="hidden lg:flex items-center relative w-80"><input type="text" id="global-search" placeholder="Cari proyektor, laptop, kamera..." class="w-full bg-slate-100 border rounded-full py-2.5 pl-10 pr-4 text-sm focus:ring-2 focus:ring-brand-teal focus:outline-none"><i class="fa-solid fa-magnifying-glass absolute left-3.5 text-slate-400 text-sm"></i></div>
+<div class="hidden md:flex items-center space-x-6">
+<a href="#beranda" class="text-sm">Beranda</a><a href="#katalog" class="text-sm">Katalog</a><a href="#hubs" class="text-sm">Hubs & Loyalty</a><a href="#keunggulan" class="text-sm">Keamanan</a>
+<div id="nav-auth-area" class="flex items-center space-x-2"></div>
+</div>
+<div class="md:hidden"><button id="mobile-menu-btn" class="p-2"><i class="fas fa-bars text-2xl"></i></button></div>
+</div></div>
+<div id="mobile-menu" class="hidden md:hidden bg-white border-t px-4 pt-3 pb-6 space-y-3">
+<input type="text" id="mobile-search" placeholder="Cari perangkat..." class="w-full bg-slate-100 rounded-xl py-2.5 px-4 text-sm">
+<a href="#beranda" class="block py-2">Beranda</a><a href="#katalog" class="block py-2">Katalog</a><a href="#hubs" class="block py-2">Hubs</a>
+<div id="nav-auth-area-mobile"></div>
+</div></nav>
 
-    <!-- NAVBAR -->
-    <nav class="fixed w-full z-50 bg-white/90 backdrop-blur-md border-b border-slate-200/80 transition-all duration-300" id="navbar">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-20">
-                <!-- Brand Logo -->
-                <a href="#beranda" class="flex items-center space-x-3 group">
-                    <div class="w-11 h-11 bg-gradient-to-tr from-brand-teal to-teal-400 rounded-2xl flex items-center justify-center shadow-lg shadow-teal-500/20 group-hover:scale-105 transition-transform">
-                        <i class="fa-solid fa-laptop-code text-white text-xl"></i>
-                    </div>
-                    <div>
-                        <span class="font-extrabold text-xl text-brand-navy tracking-tight block">RENT IT <span class="text-brand-teal">CAMPUS</span></span>
-                        <span class="text-[10px] text-slate-400 font-medium tracking-wider uppercase block -mt-1">Equipment Sharing Platform</span>
-                    </div>
-                </a>
+<main class="flex-grow pt-20">
+<section id="beranda" class="bg-white py-16 lg:py-24 border-b">
+<div class="max-w-7xl mx-auto px-4 grid lg:grid-cols-12 gap-12 items-center">
+<div class="lg:col-span-7 text-center lg:text-left">
+<div class="inline-flex items-center px-4 py-2 rounded-full bg-teal-50 border text-brand-teal text-sm mb-6"><span class="h-2 w-2 rounded-full bg-brand-teal mr-2 animate-ping"></span>#1 Solusi Sewa Kampus</div>
+<h1 class="text-4xl lg:text-6xl font-extrabold text-brand-navy mb-6">Sewa Alat Kampus <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-teal to-blue-600">Tanpa Ribet, Tanpa Mahal.</span></h1>
+<p class="text-lg text-slate-600 mb-4">Ubah <span class="line-through font-bold">Rp 15 Juta (CAPEX)</span> jadi <span class="font-bold text-brand-teal">Rp 45rb/hari (OPEX)</span>. Tanpa servis & garansi.</p>
+<div class="flex flex-wrap gap-2 justify-center lg:justify-start mb-8">
+<span class="text-xs font-bold bg-slate-900 text-white px-3 py-1.5 rounded-full">Paket Skripsi</span>
+<span class="text-xs font-bold bg-teal-100 text-teal-800 px-3 py-1.5 rounded-full">Paket Kreator</span>
+<span class="text-xs font-bold bg-amber-100 text-amber-800 px-3 py-1.5 rounded-full">Paket BEM / Event</span>
+</div>
+<div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+<a href="#katalog" class="px-8 py-4 rounded-2xl bg-brand-teal text-white font-bold text-center">Mulai Sewa Sekarang</a>
+<a href="#hubs" class="px-8 py-4 rounded-2xl border-2 text-center font-bold"><i class="fa-solid fa-shield-halved mr-2 text-brand-teal"></i>Hubs & Loyalty</a>
+</div></div>
+<div class="lg:col-span-5"><img src="https://images.unsplash.com/photo-1526738549149-8e07eca6c147?auto=format&fit=crop&w=900&q=80" class="rounded-3xl w-full h-80 object-cover shadow-2xl"></div>
+</div></section>
 
-                <!-- Search Input Desktop -->
-                <div class="hidden lg:flex items-center relative w-80">
-                    <input type="text" id="global-search" placeholder="Cari proyektor, laptop, kamera..." 
-                           class="w-full bg-slate-100 border border-slate-200 rounded-full py-2.5 pl-10 pr-4 text-sm focus:outline-none focus:ring-2 focus:ring-brand-teal focus:bg-white transition-all">
-                    <i class="fa-solid fa-magnifying-glass absolute left-3.5 text-slate-400 text-sm"></i>
-                </div>
+<section id="katalog" class="py-20 bg-slate-50">
+<div class="max-w-7xl mx-auto px-4">
+<div class="text-center mb-10"><h2 class="text-3xl font-extrabold text-brand-navy">Kategori & Pilihan Perangkat</h2><p class="text-sm text-slate-600">Add-on kini kontekstual. Peak Season +20%.</p></div>
+<div class="flex space-x-2 overflow-x-auto pb-4 mb-8 no-scrollbar" id="category-filters">
+<button data-cat="all" class="cat-btn active bg-brand-teal text-white px-5 py-2.5 rounded-full text-sm whitespace-nowrap">Semua</button>
+<button data-cat="event" class="cat-btn bg-white border px-5 py-2.5 rounded-full text-sm whitespace-nowrap">Proyektor & Event</button>
+<button data-cat="laptop" class="cat-btn bg-white border px-5 py-2.5 rounded-full text-sm whitespace-nowrap">Laptop & PC</button>
+<button data-cat="kamera" class="cat-btn bg-white border px-5 py-2.5 rounded-full text-sm whitespace-nowrap">Kamera & Lighting</button>
+<button data-cat="gadget" class="cat-btn bg-white border px-5 py-2.5 rounded-full text-sm whitespace-nowrap">Tablet & Gaming</button>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6" id="product-container"></div>
+</div></section>
 
-                <!-- Desktop Menu Nav -->
-                <div class="hidden md:flex items-center space-x-8">
-                    <a href="#beranda" class="text-slate-600 hover:text-brand-teal font-medium text-sm transition-colors">Beranda</a>
-                    <a href="#katalog" class="text-slate-600 hover:text-brand-teal font-medium text-sm transition-colors">Katalog & Etalase</a>
-                    <a href="#keunggulan" class="text-slate-600 hover:text-brand-teal font-medium text-sm transition-colors">Fitur KYC & Keamanan</a>
-                    
-                    <button onclick="openAuthModal()" class="bg-brand-navy hover:bg-brand-slate text-white px-6 py-2.5 rounded-full text-sm font-semibold transition-all shadow-md hover:shadow-lg flex items-center space-x-2">
-                        <i class="fa-solid fa-user-check text-xs text-brand-teal"></i>
-                        <span id="nav-user-label">Masuk / Daftar</span>
-                    </button>
-                </div>
+<section id="hubs" class="py-20 bg-white border-y">
+<div class="max-w-7xl mx-auto px-4 grid lg:grid-cols-2 gap-10">
+<div><h2 class="text-3xl font-extrabold mb-4">Ambil di Hub Kampus</h2>
+<div class="space-y-3">
+<div class="hub-card p-4 bg-slate-50 rounded-2xl border flex items-center"><i class="fa-solid fa-store text-brand-teal text-xl mr-3"></i><div><p class="font-bold text-sm">Pos PKM Lt.1</p><p class="text-xs">08.00-18.00 • Verifikasi KTM/KTP fisik</p></div></div>
+<div class="hub-card p-4 bg-slate-50 rounded-2xl border flex items-center"><i class="fa-solid fa-motorcycle text-brand-teal text-xl mr-3"></i><div><p class="font-bold text-sm">Kurir Kampus Express</p><p class="text-xs">Antar ke kos +Rp 15rb</p></div></div>
+</div></div>
+<div class="bg-brand-navy text-white p-8 rounded-3xl"><h3 class="font-bold text-xl mb-2"><i class="fa-solid fa-coins text-yellow-400 mr-2"></i>Loyalty</h3><p class="text-sm text-slate-400 mb-4">Login untuk simpan poin. 100+ poin = diskon 10% otomatis.</p><div class="bg-slate-800 p-4 rounded-2xl"><p class="text-xs mb-2">Poin Kamu: <b id="loyalty-point-display">Login dulu</b></p><div class="w-full bg-slate-700 h-2 rounded-full"><div class="loyalty-progress h-2 rounded-full" style="width:60%"></div></div></div></div>
+</div></section>
 
-                <!-- Mobile Menu Hamburger -->
-                <div class="md:hidden flex items-center">
-                    <button id="mobile-menu-btn" class="text-slate-600 hover:text-brand-teal p-2 focus:outline-none">
-                        <i class="fas fa-bars text-2xl"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
+<section id="keunggulan" class="py-20 bg-brand-navy text-white"><div class="max-w-7xl mx-auto px-4 text-center"><h2 class="text-3xl font-extrabold mb-8">Proteksi & Kontrak Digital</h2><div class="grid md:grid-cols-3 gap-6 text-left"><div class="bg-slate-800 p-8 rounded-3xl"><i class="fa-solid fa-id-card text-3xl text-brand-teal mb-3"></i><h3 class="font-bold">KYC Saat Ambil</h3><p class="text-sm text-slate-400">Tidak perlu upload. Tunjukkan KTM/KTP fisik + E-Tiket di Hub.</p></div><div class="bg-slate-800 p-8 rounded-3xl"><i class="fa-solid fa-file-contract text-3xl text-blue-400 mb-3"></i><h3 class="font-bold">Kontrak Otomatis</h3><p class="text-sm text-slate-400">Setiap booking terbitkan Surat Perjanjian Sewa yang bisa diunduh.</p></div><div class="bg-slate-800 p-8 rounded-3xl"><i class="fa-solid fa-shield-halved text-3xl text-teal-400 mb-3"></i><h3 class="font-bold">Asuransi Mikro</h3><p class="text-sm text-slate-400">Rp 5rb/hari cover kerusakan ringan.</p></div></div></div></section>
+</main>
 
-        <!-- Mobile Menu Dropdown -->
-        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-slate-100 px-4 pt-3 pb-6 space-y-3">
-            <input type="text" id="mobile-search" placeholder="Cari perangkat..." class="w-full bg-slate-100 border border-slate-200 rounded-xl py-2.5 px-4 text-sm mb-2">
-            <a href="#beranda" class="block py-2 text-slate-700 font-medium">Beranda</a>
-            <a href="#katalog" class="block py-2 text-slate-700 font-medium">Katalog & Etalase</a>
-            <a href="#keunggulan" class="block py-2 text-slate-700 font-medium">Fitur Keamanan</a>
-            <button onclick="openAuthModal()" class="w-full bg-brand-navy text-white py-3 rounded-xl font-medium mt-2">
-                Masuk / Daftar
-            </button>
-        </div>
-    </nav>
+<!-- MODAL AUTH BARU: BISA SIMPAN AKUN -->
+<div id="auth-modal" class="modal-overlay hidden fixed inset-0 bg-slate-900/60 z-[100] flex items-center justify-center p-4">
+<div class="modal-card bg-white rounded-3xl max-w-md w-full p-8 relative">
+<button onclick="closeAuthModal()" class="absolute top-5 right-5"><i class="fa-solid fa-xmark"></i></button>
+<h3 class="text-2xl font-bold text-center">Akun Rent It Campus</h3>
+<p class="text-xs text-center text-slate-500 mb-4">Akun tersimpan di browser (localStorage). Tetap login walau refresh.</p>
+<div class="grid grid-cols-2 bg-slate-100 rounded-xl p-1 mb-5">
+<button id="tab-login" onclick="switchAuthTab('login')" class="py-2 rounded-lg text-sm font-bold bg-white shadow">Masuk</button>
+<button id="tab-register" onclick="switchAuthTab('register')" class="py-2 rounded-lg text-sm font-bold text-slate-500">Daftar</button>
+</div>
+<form id="form-login" onsubmit="handleLogin(event)" class="space-y-3">
+<input id="login-email" type="email" required placeholder="Email kampus" class="w-full border rounded-xl px-4 py-3 text-sm">
+<input id="login-pass" type="password" required placeholder="Password" class="w-full border rounded-xl px-4 py-3 text-sm">
+<button class="w-full bg-brand-teal text-white py-3 rounded-xl font-bold">Masuk & Simpan Session</button>
+</form>
+<form id="form-register" onsubmit="handleRegister(event)" class="space-y-3 hidden">
+<input id="reg-name" required placeholder="Nama Lengkap" class="w-full border rounded-xl px-4 py-3 text-sm">
+<input id="reg-email" type="email" required placeholder="Email kampus" class="w-full border rounded-xl px-4 py-3 text-sm">
+<input id="reg-pass" type="password" required minlength="6" placeholder="Password min.6" class="w-full border rounded-xl px-4 py-3 text-sm">
+<select id="reg-category" class="w-full border rounded-xl px-4 py-3 text-sm"><option>Mahasiswa Kampus</option><option>Dosen / Staff</option><option>Panitia Event / Umum</option></select>
+<button class="w-full bg-brand-navy text-white py-3 rounded-xl font-bold">Buat Akun</button>
+</form>
+</div></div>
 
-    <!-- MAIN CONTENT -->
-    <main class="flex-grow pt-20">
+<!-- MODAL CHECKOUT: TANPA UPLOAD, ADD-ON KONTEKSTUAL -->
+<div id="checkout-modal" class="modal-overlay hidden fixed inset-0 bg-slate-900/60 z-[100] flex items-center justify-center p-4">
+<div class="modal-card bg-white rounded-3xl max-w-lg w-full p-8 relative max-h-[90vh] overflow-y-auto">
+<button onclick="closeCheckoutModal()" class="absolute top-5 right-5"><i class="fa-solid fa-xmark"></i></button>
+<h3 class="text-2xl font-bold">Formulir Penyewaan</h3>
+<p class="text-xs text-slate-500 mb-4">Add-on menyesuaikan barang yang kamu pilih.</p>
+<div class="bg-teal-50 border p-4 rounded-2xl mb-4 flex space-x-3"><img id="checkout-item-img" class="w-16 h-16 rounded-xl object-cover"><div><span id="checkout-item-brand" class="text-[10px] font-bold text-brand-teal uppercase"></span><h4 id="checkout-item-name" class="font-bold"></h4></div></div>
+<form onsubmit="handleCheckoutSubmit(event)" class="space-y-4">
+<div><label class="text-xs font-bold uppercase">Pilih Tipe</label><select id="sub-model-select" onchange="onSubModelChange()" class="w-full border-2 border-brand-teal/40 rounded-xl px-4 py-3 text-sm font-semibold"></select></div>
+<div class="grid grid-cols-2 gap-4">
+<div><label class="text-xs font-bold uppercase">Durasi (Hari)</label><input type="number" id="rental-days" min="1" max="30" value="1" oninput="calculateTotal()" class="w-full border rounded-xl px-4 py-2.5 text-sm"></div>
+<div><label class="text-xs font-bold uppercase">Tanggal</label><input type="date" id="rental-date" required class="w-full border rounded-xl px-3 py-2.5 text-sm"></div>
+</div>
+<div><label class="text-xs font-bold uppercase">Hub Pengambilan</label><select id="hub-select" class="w-full border rounded-xl px-4 py-2.5 text-sm"><option value="Pos PKM Lt.1">Pos PKM Lt.1</option><option value="Kantin FIB & Teknik">Kantin FIB & Teknik</option><option value="Kurir Kampus Express">Diantar Kurir (+Rp 15rb)</option></select>
+<p class="text-[11px] text-slate-500 mt-1">Wajib bawa KTM/KTP fisik + tunjukkan E-Tiket. Tanpa upload.</p></div>
+<div class="flex items-center space-x-2"><input type="checkbox" id="include-insurance" onchange="calculateTotal()"><label for="include-insurance" class="text-xs">Asuransi ringan (+Rp 5rb/hari)</label></div>
+<div class="bg-amber-50 border border-amber-200 p-3 rounded-xl"><p class="text-xs font-bold mb-2"><i class="fa-solid fa-puzzle-piece mr-1"></i>Sering disewa bersama:</p><div id="addon-list" class="space-y-1"></div></div>
+<div class="bg-slate-100 p-4 rounded-2xl flex justify-between"><span class="font-bold text-sm">Total:</span><span id="checkout-total-price" class="font-extrabold text-brand-teal text-xl">Rp 0</span></div>
+<p id="checkout-discount-info" class="text-[11px] text-emerald-600 font-semibold"></p>
+<label class="flex items-start text-[11px] space-x-2"><input type="checkbox" required class="mt-1"><span>Saya setuju menandatangani <b>Surat Kontrak Perjanjian Sewa</b> yang diterbitkan otomatis setelah konfirmasi.</span></label>
+<button class="w-full bg-brand-teal text-white font-bold py-3.5 rounded-xl">Konfirmasi & Terbitkan E-Tiket + Kontrak</button>
+</form></div></div>
 
-        <!-- HERO SECTION -->
-        <section id="beranda" class="relative bg-white overflow-hidden py-16 lg:py-24 border-b border-slate-200/60">
-            <div class="absolute inset-0 bg-[radial-gradient(#0d9488_1px,transparent_1px)] [background-size:24px_24px] opacity-[0.07]"></div>
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-                <div class="lg:grid lg:grid-cols-12 lg:gap-12 items-center">
-                    
-                    <div class="lg:col-span-7 text-center lg:text-left mb-12 lg:mb-0">
-                        <div class="inline-flex items-center px-4 py-2 rounded-full bg-teal-50 border border-teal-200/60 text-brand-teal font-medium text-xs sm:text-sm mb-6">
-                            <span class="flex h-2 w-2 rounded-full bg-brand-teal mr-2.5 animate-ping"></span>
-                            #1 Solusi Sewa Perangkat & Equipment Kampus
-                        </div>
-                        <h1 class="text-4xl sm:text-5xl lg:text-7xl font-extrabold text-brand-navy leading-[1.1] tracking-tight mb-6">
-                            Sewa Alat Kampus <br class="hidden sm:inline">
-                            <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-teal to-blue-600">
-                                Tanpa Ribet, Tanpa Mahal.
-                            </span>
-                        </h1>
-                        <p class="text-lg text-slate-600 mb-10 leading-relaxed max-w-2xl mx-auto lg:mx-0">
-                            Dari proyektor untuk seminar hingga kamera untuk dokumentasi, temukan perangkat terbaik dengan spesifikasi yang bisa kamu pilih sendiri.
-                        </p>
+<!-- MODAL TIKET + KONTRAK -->
+<div id="ticket-modal" class="modal-overlay hidden fixed inset-0 bg-slate-900/60 z-[100] flex items-center justify-center p-4">
+<div class="modal-card bg-white rounded-3xl max-w-md w-full p-6 max-h-[90vh] overflow-y-auto relative">
+<button onclick="closeTicketModal()" class="absolute top-5 right-5"><i class="fa-solid fa-xmark"></i></button>
+<div class="text-center mb-4"><div class="w-14 h-14 bg-emerald-100 rounded-full flex items-center justify-center mx-auto"><i class="fa-solid fa-ticket text-emerald-600 text-2xl"></i></div><h3 class="text-xl font-extrabold">Booking Berhasil!</h3></div>
+<div class="bg-brand-navy text-white p-5 rounded-2xl space-y-2 text-sm">
+<div class="flex justify-between"><span class="text-slate-400 text-xs">KODE</span><span id="ticket-code" class="font-mono font-bold text-teal-300">RIC-</span></div>
+<div><span class="text-slate-400 text-xs">BARANG</span><span id="ticket-item-title" class="block font-bold"></span></div>
+<div class="grid grid-cols-2"><div><span class="text-slate-400 text-xs">DURASI</span><span id="ticket-duration" class="block"></span></div><div><span class="text-slate-400 text-xs">TANGGAL</span><span id="ticket-date" class="block"></span></div></div>
+<div class="flex justify-between border-t border-slate-700 pt-2"><span>Total:</span><span id="ticket-total-cost" class="font-extrabold text-teal-300"></span></div>
+</div>
+<div class="bg-slate-50 border rounded-2xl p-4 mt-4">
+<h4 class="font-bold text-sm mb-1"><i class="fa-solid fa-file-contract mr-1 text-brand-teal"></i>Surat Kontrak Perjanjian Sewa</h4>
+<p class="text-[11px] text-slate-500 mb-3">Dokumen legal Blok 6 BMC. Wajib dibawa + tanda tangan saat ambil unit.</p>
+<pre id="contract-text" class="hidden text-[10px] bg-white border rounded-xl p-3 whitespace-pre-wrap max-h-48 overflow-y-auto"></pre>
+<div class="flex space-x-2 mt-2">
+<button onclick="previewContract()" class="flex-1 bg-slate-900 text-white py-2.5 rounded-xl text-xs font-bold">Preview</button>
+<button onclick="downloadContract()" class="flex-1 bg-brand-teal text-white py-2.5 rounded-xl text-xs font-bold"><i class="fa-solid fa-download mr-1"></i>Unduh (.txt)</button>
+</div></div>
+<div class="flex space-x-2 mt-4">
+<button onclick="copyTicketCode()" class="flex-1 bg-slate-100 py-3 rounded-xl text-xs font-bold">Salin Kode</button>
+<button onclick="closeTicketModal()" class="flex-1 bg-slate-900 text-white py-3 rounded-xl text-xs font-bold">Selesai</button>
+</div>
+</div></div>
 
-                        <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                            <a href="#katalog" class="inline-flex justify-center items-center px-8 py-4 text-base font-bold rounded-2xl shadow-xl shadow-brand-teal/30 text-white bg-brand-teal hover:bg-brand-tealDark transition-all hover:-translate-y-1 active:scale-95">
-                                Mulai Sewa Sekarang
-                                <i class="fas fa-chevron-right ml-2 text-sm"></i>
-                            </a>
-                            <button onclick="openAuthModal()" class="inline-flex justify-center items-center px-8 py-4 border-2 border-slate-200 text-base font-bold rounded-2xl text-slate-700 bg-white hover:bg-slate-50 hover:border-slate-300 transition-all active:scale-95">
-                                <i class="fa-solid fa-shield-halved mr-2 text-brand-teal"></i>
-                                Cek Keamanan KYC
-                            </button>
-                        </div>
-
-                        <!-- Stats Bar -->
-                        <div class="mt-12 pt-8 border-t border-slate-100 grid grid-cols-3 gap-4 text-center lg:text-left">
-                            <div>
-                                <p class="text-2xl font-extrabold text-brand-navy">1200+</p>
-                                <p class="text-xs text-slate-500">Transaksi Penyewaan</p>
-                            </div>
-                            <div>
-                                <p class="text-2xl font-extrabold text-brand-teal">100%</p>
-                                <p class="text-xs text-slate-500">Unit Terawat & QC</p>
-                            </div>
-                            <div>
-                                <p class="text-2xl font-extrabold text-brand-navy">25+</p>
-                                <p class="text-xs text-slate-500">Variasi Tipe Alat</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Visual Hero Feature (Multi-device Gear Setup) -->
-                    <div class="lg:col-span-5 relative">
-                        <div class="relative rounded-3xl p-3 bg-gradient-to-tr from-slate-900 to-brand-navy shadow-2xl overflow-hidden transform hover:scale-[1.01] transition-all">
-                            <!-- Foto Hero Baru: Kombinasi Kamera, Audio, Laptop, & Perangkat Digital -->
-                            <img src="https://images.unsplash.com/photo-1526738549149-8e07eca6c147?auto=format&fit=crop&w=900&q=80" 
-                                 alt="Perlengkapan Equipment & Multi Gadget" class="rounded-2xl w-full h-80 sm:h-96 object-cover opacity-90">
-                            
-                            <!-- Floating Badge Card -->
-                            <div class="absolute bottom-6 left-6 right-6 bg-white/90 backdrop-blur-md p-4 rounded-2xl shadow-xl border border-white/50 flex items-center justify-between">
-                                <div class="flex items-center space-x-3">
-                                    <div class="w-10 h-10 bg-teal-100 text-brand-teal rounded-xl flex items-center justify-center">
-                                        <i class="fa-solid fa-boxes-packing text-lg"></i>
-                                    </div>
-                                    <div>
-                                        <p class="text-xs text-slate-500 font-medium">Katalog Fleksibel</p>
-                                        <p class="text-sm font-bold text-brand-navy">Pilih Merk & Seri Spesifik</p>
-                                    </div>
-                                </div>
-                                <span class="text-xs font-bold bg-emerald-100 text-emerald-700 px-2.5 py-1 rounded-full">Ready Stock</span>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </section>
-
-        <!-- KATALOG & ETALASE PERANGKAT -->
-        <section id="katalog" class="py-20 bg-slate-50">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                
-                <!-- Header Katalog -->
-                <div class="text-center max-w-3xl mx-auto mb-12">
-                    <span class="text-brand-teal font-semibold text-xs tracking-wider uppercase bg-teal-100/60 px-3 py-1 rounded-full">Etalase Inventaris</span>
-                    <h2 class="text-3xl sm:text-4xl font-extrabold text-brand-navy mt-3">Kategori & Pilihan Perangkat</h2>
-                    <p class="text-slate-600 mt-2 text-sm sm:text-base">Klik pada kategori atau tombol "Pilih Tipe & Sewa" untuk melihat variasi model yang tersedia.</p>
-                </div>
-
-                <!-- Category Filters (Tabs) -->
-                <div class="flex items-center justify-start md:justify-center space-x-2 overflow-x-auto pb-4 mb-10 no-scrollbar" id="category-filters">
-                    <button data-cat="all" class="cat-btn active bg-brand-teal text-white px-5 py-2.5 rounded-full text-sm font-semibold whitespace-nowrap shadow-md transition-all">
-                        Semua Barang
-                    </button>
-                    <button data-cat="event" class="cat-btn bg-white text-slate-600 border border-slate-200 hover:border-brand-teal px-5 py-2.5 rounded-full text-sm font-medium whitespace-nowrap transition-all">
-                        <i class="fa-solid fa-video mr-1.5 text-xs"></i> Proyektor & Event
-                    </button>
-                    <button data-cat="laptop" class="cat-btn bg-white text-slate-600 border border-slate-200 hover:border-brand-teal px-5 py-2.5 rounded-full text-sm font-medium whitespace-nowrap transition-all">
-                        <i class="fa-solid fa-laptop mr-1.5 text-xs"></i> Laptop & PC
-                    </button>
-                    <button data-cat="kamera" class="cat-btn bg-white text-slate-600 border border-slate-200 hover:border-brand-teal px-5 py-2.5 rounded-full text-sm font-medium whitespace-nowrap transition-all">
-                        <i class="fa-solid fa-camera mr-1.5 text-xs"></i> Kamera & Lighting
-                    </button>
-                    <button data-cat="gadget" class="cat-btn bg-white text-slate-600 border border-slate-200 hover:border-brand-teal px-5 py-2.5 rounded-full text-sm font-medium whitespace-nowrap transition-all">
-                        <i class="fa-solid fa-gamepad mr-1.5 text-xs"></i> Tablet & Gaming
-                    </button>
-                </div>
-
-                <!-- Product Grid (Rendered Dynamically via JS) -->
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6" id="product-container">
-                    <!-- Products injected by app.js -->
-                </div>
-
-            </div>
-        </section>
-
-        <!-- FITUR KEAMANAN & KYC SECTION -->
-        <section id="keunggulan" class="py-20 bg-brand-navy text-white relative overflow-hidden">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-                <div class="text-center max-w-3xl mx-auto mb-16">
-                    <div class="w-14 h-14 bg-brand-teal/20 text-brand-teal rounded-2xl flex items-center justify-center text-2xl mx-auto mb-4 border border-brand-teal/30">
-                        <i class="fa-solid fa-user-shield"></i>
-                    </div>
-                    <h2 class="text-3xl font-extrabold mb-4">Sistem Proteksi & Verifikasi Aman</h2>
-                    <p class="text-slate-400 text-sm sm:text-base leading-relaxed">
-                        Perlindungan menyeluruh bagi pengelola inventaris dan kemudahan syarat penyewaan bagi mahasiswa/civitas.
-                    </p>
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    <div class="bg-slate-800/60 border border-slate-700/80 p-8 rounded-3xl hover:border-brand-teal transition-all">
-                        <i class="fa-solid fa-id-card text-brand-teal text-3xl mb-4"></i>
-                        <h3 class="text-xl font-bold mb-2">Verifikasi Identitas KYC</h3>
-                        <p class="text-slate-400 text-sm leading-relaxed">Penyewa wajib memverifikasi identitas resmi (KTM / KTP) saat pengambilan barang demi keamanan bersama.</p>
-                    </div>
-                    <div class="bg-slate-800/60 border border-slate-700/80 p-8 rounded-3xl hover:border-brand-teal transition-all">
-                        <i class="fa-solid fa-sliders text-teal-400 text-3xl mb-4"></i>
-                        <h3 class="text-xl font-bold mb-2">Quality Control (QC) Layak Pakai</h3>
-                        <p class="text-slate-400 text-sm leading-relaxed">Seluruh kabel, lensa, lumens proyektor, dan sistem diuji berfungsi normal sebelum diserahkan.</p>
-                    </div>
-                    <div class="bg-slate-800/60 border border-slate-700/80 p-8 rounded-3xl hover:border-brand-teal transition-all">
-                        <i class="fa-solid fa-file-contract text-blue-400 text-3xl mb-4"></i>
-                        <h3 class="text-xl font-bold mb-2">Opsi Asuransi Perangkat</h3>
-                        <p class="text-slate-400 text-sm leading-relaxed">Perlindungan ekstra dari risiko resiko ketidaksengajaan ringan selama durasi sewa.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-    </main>
-
-    <!-- FOOTER -->
-    <footer class="bg-white border-t border-slate-200 pt-16 pb-8 text-slate-600">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
-            <div class="md:col-span-2">
-                <span class="font-extrabold text-xl text-brand-navy tracking-tight block mb-3">RENT IT <span class="text-brand-teal">CAMPUS</span></span>
-                <p class="text-sm text-slate-500 leading-relaxed max-w-sm mb-4">
-                    Platform ekosistem penyewaan alat dan teknologi kampus pertama yang fleksibel, terjangkau, dan aman.
-                </p>
-                <div class="flex space-x-3">
-                    <a href="#" class="w-9 h-9 rounded-full bg-slate-100 flex items-center justify-center text-slate-600 hover:bg-brand-teal hover:text-white transition"><i class="fab fa-instagram text-sm"></i></a>
-                    <a href="#" class="w-9 h-9 rounded-full bg-slate-100 flex items-center justify-center text-slate-600 hover:bg-brand-teal hover:text-white transition"><i class="fab fa-tiktok text-sm"></i></a>
-                    <a href="#" class="w-9 h-9 rounded-full bg-slate-100 flex items-center justify-center text-slate-600 hover:bg-brand-teal hover:text-white transition"><i class="fab fa-whatsapp text-sm"></i></a>
-                </div>
-            </div>
-
-            <div>
-                <h4 class="font-bold text-brand-navy text-sm uppercase tracking-wider mb-4">Navigasi</h4>
-                <ul class="space-y-2.5 text-sm">
-                    <li><a href="#beranda" class="hover:text-brand-teal transition">Beranda</a></li>
-                    <li><a href="#katalog" class="hover:text-brand-teal transition">Katalog Perangkat</a></li>
-                    <li><a href="#keunggulan" class="hover:text-brand-teal transition">Sistem Keamanan</a></li>
-                </ul>
-            </div>
-
-            <div>
-                <h4 class="font-bold text-brand-navy text-sm uppercase tracking-wider mb-4">Layanan Pengambilan</h4>
-                <p class="text-sm text-slate-500 leading-relaxed">
-                    Gedung Student Center / PKM Lt. 1<br>
-                    Jam Operasional: 08.00 - 18.00 WIB
-                </p>
-            </div>
-        </div>
-
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 border-t border-slate-100 text-center md:flex md:justify-between text-xs text-slate-400">
-            <p>&copy; 2026 Rent It Campus Project. All rights reserved.</p>
-            <p class="mt-2 md:mt-0">Didesain untuk Portofolio & Tugas Bisnis Digital</p>
-        </div>
-    </footer>
-
-    <!-- MODAL 1: AUTHENTICATION -->
-    <div id="auth-modal" class="modal-overlay hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[100] flex items-center justify-center p-4">
-        <div class="modal-card bg-white rounded-3xl max-w-md w-full p-8 shadow-2xl relative">
-            <button onclick="closeAuthModal()" class="absolute top-5 right-5 text-slate-400 hover:text-slate-600 text-lg">
-                <i class="fa-solid fa-xmark"></i>
-            </button>
-            <div class="text-center mb-6">
-                <div class="w-12 h-12 bg-teal-100 text-brand-teal rounded-2xl flex items-center justify-center text-xl mx-auto mb-3">
-                    <i class="fa-solid fa-user-check"></i>
-                </div>
-                <h3 class="text-2xl font-bold text-brand-navy">Masuk / Profil Segmen</h3>
-                <p class="text-xs text-slate-500 mt-1">Pilih status profil Anda untuk verifikasi identitas.</p>
-            </div>
-
-            <form onsubmit="handleAuthSubmit(event)" class="space-y-4">
-                <div>
-                    <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Status Kategori</label>
-                    <select id="auth-category" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-brand-teal focus:outline-none">
-                        <option value="Mahasiswa Kampus">Mahasiswa (Tarif Khusus & Verifikasi KTM)</option>
-                        <option value="Dosen / Staff">Dosen / Staff Akademika</option>
-                        <option value="Panitia Event / Umum">Masyarakat Umum / Panitia Acara</option>
-                    </select>
-                </div>
-                <div>
-                    <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Email / No. WhatsApp</label>
-                    <input type="text" required id="auth-contact" placeholder="mahasiswa@campus.ac.id" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-brand-teal focus:outline-none">
-                </div>
-                <button type="submit" class="w-full bg-brand-teal hover:bg-brand-tealDark text-white font-semibold py-3.5 rounded-xl shadow-lg shadow-teal-500/20 transition">
-                    Simpan & Lanjutkan
-                </button>
-            </form>
-        </div>
-    </div>
-
-    <!-- MODAL 2: CHECKOUT & SUB-MODEL SELECTION FORM -->
-    <div id="checkout-modal" class="modal-overlay hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[100] flex items-center justify-center p-4">
-        <div class="modal-card bg-white rounded-3xl max-w-lg w-full p-8 shadow-2xl relative max-h-[90vh] overflow-y-auto">
-            <button onclick="closeCheckoutModal()" class="absolute top-5 right-5 text-slate-400 hover:text-slate-600 text-lg">
-                <i class="fa-solid fa-xmark"></i>
-            </button>
-
-            <h3 class="text-2xl font-bold text-brand-navy mb-1">Formulir Penyewaan</h3>
-            <p class="text-xs text-slate-500 mb-6">Pilih tipe spesifik perangkat dan tentukan durasi sewa.</p>
-
-            <!-- Product Header Summary -->
-            <div class="bg-teal-50/80 border border-teal-200 p-4 rounded-2xl mb-5 flex items-center space-x-4">
-                <img id="checkout-item-img" src="" alt="Thumbnail" class="w-16 h-16 object-cover rounded-xl border border-teal-200">
-                <div>
-                    <span id="checkout-item-brand" class="text-[10px] font-bold text-brand-teal uppercase tracking-wider block">BRAND</span>
-                    <h4 id="checkout-item-name" class="font-bold text-brand-navy text-base leading-tight">-</h4>
-                </div>
-            </div>
-
-            <form onsubmit="handleCheckoutSubmit(event)" class="space-y-4">
-                
-                <!-- DROPDOWN PILIHAN TIPE BARANG (SUB-MODELS) -->
-                <div>
-                    <label class="block text-xs font-bold text-slate-700 uppercase mb-1.5">
-                        <i class="fa-solid fa-list-check text-brand-teal mr-1"></i> Pilih Tipe / Seri Spesifik
-                    </label>
-                    <select id="sub-model-select" onchange="onSubModelChange()" class="w-full bg-slate-50 border-2 border-brand-teal/40 rounded-xl px-4 py-3 text-sm font-semibold text-brand-navy focus:ring-2 focus:ring-brand-teal focus:outline-none">
-                        <!-- Filled dynamically by JS -->
-                    </select>
-                </div>
-
-                <div class="grid grid-cols-2 gap-4">
-                    <div>
-                        <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Durasi (Hari)</label>
-                        <input type="number" id="rental-days" min="1" max="30" value="1" oninput="calculateTotal()" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm focus:ring-2 focus:ring-brand-teal focus:outline-none">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Tgl Pengambilan</label>
-                        <input type="date" id="rental-date" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2.5 text-sm focus:ring-2 focus:ring-brand-teal focus:outline-none">
-                    </div>
-                </div>
-
-                <div>
-                    <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Metode Penerimaan</label>
-                    <select id="delivery-method" onchange="calculateTotal()" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-sm focus:ring-2 focus:ring-brand-teal focus:outline-none">
-                        <option value="kantor">Ambil Mandiri di Pos PKM (Bawa KTM/KTP)</option>
-                        <option value="kurir">Diantar Kurir Kampus Express (+Rp 15.000)</option>
-                    </select>
-                </div>
-
-                <div class="flex items-center space-x-2 pt-1">
-                    <input type="checkbox" id="include-insurance" onchange="calculateTotal()" class="w-4 h-4 text-brand-teal rounded border-slate-300 focus:ring-brand-teal">
-                    <label for="include-insurance" class="text-xs text-slate-600">Proteksi Asuransi Kerusakan Ringan (+Rp 5.000/hari)</label>
-                </div>
-
-                <!-- Total Display Box -->
-                <div class="bg-slate-100 p-4 rounded-2xl flex justify-between items-center mt-4">
-                    <span class="text-sm font-bold text-slate-700">Total Pembayaran:</span>
-                    <span id="checkout-total-price" class="text-xl font-extrabold text-brand-teal">Rp 0</span>
-                </div>
-
-                <button type="submit" class="w-full bg-brand-teal hover:bg-brand-tealDark text-white font-bold py-3.5 rounded-xl shadow-lg shadow-teal-500/20 transition">
-                    Konfirmasi & Terbitkan E-Tiket
-                </button>
-            </form>
-        </div>
-    </div>
-
-    <!-- MODAL 3: E-TICKET DIGITAL -->
-    <div id="ticket-modal" class="modal-overlay hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[100] flex items-center justify-center p-4">
-        <div class="modal-card bg-white rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-2xl relative">
-            <button onclick="closeTicketModal()" class="absolute top-5 right-5 text-slate-400 hover:text-slate-600 text-lg">
-                <i class="fa-solid fa-xmark"></i>
-            </button>
-
-            <div class="text-center mb-6">
-                <div class="w-14 h-14 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center text-2xl mx-auto mb-2">
-                    <i class="fa-solid fa-ticket"></i>
-                </div>
-                <h3 class="text-2xl font-extrabold text-brand-navy">E-Tiket Booking Berhasil!</h3>
-                <p class="text-xs text-slate-500">Tunjukkan bukti digital ini saat verifikasi KTM/KTP & pengambilan unit.</p>
-            </div>
-
-            <!-- E-Ticket Styled Box -->
-            <div class="ticket-box bg-brand-navy text-white p-6 rounded-2xl space-y-4 font-sans relative overflow-hidden border border-slate-700 shadow-inner">
-                <div class="flex justify-between items-center border-b border-slate-700/80 pb-3">
-                    <div>
-                        <span class="text-[10px] text-slate-400 block uppercase">KODE BOOKING</span>
-                        <span id="ticket-code" class="font-mono text-brand-teal font-bold text-base">RIC-XXXXX</span>
-                    </div>
-                    <span class="text-xs bg-emerald-500/20 text-emerald-400 font-bold px-2.5 py-1 rounded">TERKONFIRMASI</span>
-                </div>
-
-                <div>
-                    <span class="text-[10px] text-slate-400 block uppercase">TIPE BARANG TERPILIH</span>
-                    <span id="ticket-item-title" class="text-sm font-bold text-white block">Epson EB-X500</span>
-                </div>
-
-                <div class="grid grid-cols-2 gap-2 text-xs border-t border-slate-700/80 pt-3">
-                    <div>
-                        <span class="text-slate-400 block text-[10px]">DURASI</span>
-                        <span id="ticket-duration" class="font-medium text-slate-200">1 Hari</span>
-                    </div>
-                    <div>
-                        <span class="text-slate-400 block text-[10px]">TANGGAL SEWA</span>
-                        <span id="ticket-date" class="font-medium text-slate-200">2026-10-10</span>
-                    </div>
-                </div>
-
-                <div class="border-t border-slate-700/80 pt-3 flex justify-between items-center">
-                    <span class="text-xs text-slate-400">Total Biaya:</span>
-                    <span id="ticket-total-cost" class="text-base font-extrabold text-brand-teal">Rp 0</span>
-                </div>
-
-                <!-- Simulated Barcode -->
-                <div class="pt-2 text-center">
-                    <div class="bg-white p-2 rounded-lg inline-block">
-                        <i class="fa-solid fa-barcode text-slate-900 text-4xl tracking-widest"></i>
-                    </div>
-                </div>
-            </div>
-
-            <div class="flex space-x-3 mt-6">
-                <button onclick="copyTicketCode()" class="flex-1 bg-slate-100 hover:bg-slate-200 text-slate-700 py-3 rounded-xl font-semibold text-xs transition flex items-center justify-center space-x-1">
-                    <i class="fa-regular fa-copy"></i>
-                    <span>Salin Kode</span>
-                </button>
-                <button onclick="simulatedDownloadTicket()" class="flex-1 bg-brand-teal hover:bg-brand-tealDark text-white py-3 rounded-xl font-semibold text-xs transition flex items-center justify-center space-x-1">
-                    <i class="fa-solid fa-download"></i>
-                    <span>Simpan Tiket</span>
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <!-- JavaScript Link -->
-    <script src="js/app.js"></script>
-</body>
-</html>
+<script src="js/app.js"></script>
+</body></html>
