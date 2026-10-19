@@ -661,7 +661,6 @@
     // Footer bernomor
     try {
       const n = doc.internal.getNumberOfPages();
-      totalPages = n;
       for (let i = 1; i <= n; i++) {
         doc.setPage(i);
         addFooter(doc, i, n);
