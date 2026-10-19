@@ -335,7 +335,7 @@
     y += 5;
     doc.text('“Deposit” berarti jaminan kerusakan yang dikembalikan saat selesai;', MARGIN + 2, y + 2);
     y += 5;
-    doc.text('“Penyedia” berarti ' + COMPANY.legalName + '.'  ) ;
+    doc.text('“Penyedia” berarti ' + COMPANY.legalName + '.', MARGIN + 2, y + 2);
     y += 8;
 
     // Pasa 2

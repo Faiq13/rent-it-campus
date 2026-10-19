@@ -138,7 +138,7 @@
 <pre id="contract-text" class="hidden text-[10px] bg-white border rounded-xl p-3 whitespace-pre-wrap max-h-48 overflow-y-auto"></pre>
 <div class="flex space-x-2 mt-2">
 <button onclick="previewContract()" class="flex-1 bg-slate-900 text-white py-2.5 rounded-xl text-xs font-bold">Preview</button>
-<button onclick="downloadContract()" class="flex-1 bg-brand-teal text-white py-2.5 rounded-xl text-xs font-bold"><i class="fa-solid fa-download mr-1"></i>Unduh (.txt)</button>
+<button onclick="downloadContract()" class="flex-1 bg-brand-teal text-white py-2.5 rounded-xl text-xs font-bold"><i class="fa-solid fa-download mr-1"></i>Unduh (PDF)</button>
 </div></div>
 <div class="flex space-x-2 mt-4">
 <button onclick="copyTicketCode()" class="flex-1 bg-slate-100 py-3 rounded-xl text-xs font-bold">Salin Kode</button>
@@ -146,5 +146,45 @@
 </div>
 </div></div>
 
+<!-- Dependensi generator kontrak: jsPDF (engine PDF) + QRCode (blok verifikasi) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
 <script src="js/app.js"></script>
+
+<!-- Global RIC: data perusahaan/hub + store helpers yang dibaca js/contract.js -->
+<script>
+window.RIC = window.RIC || {};
+window.RIC.data = {
+  COMPANY: {
+    brand: 'Rent It Campus',
+    name: 'Rent It Campus',
+    legalName: 'Rent It Campus — Pos PKM Lt.1, Blok 6 BMC',
+    tagline: 'Equipment Sharing Platform',
+    email: 'halo@rentitcampus.id',
+    website: 'rentitcampus.id',
+    phone: '+62 812-0000-0000',
+    address: 'Pos PKM Lt.1, Blok 6 BMC, Kampus Universitas',
+    representative: 'Koordinator Rent It Campus',
+    representativeRole: 'Penanggung Jawab Sewa',
+    jurisdiction: 'Wilayah Kampus',
+    docVersion: '1.0',
+    bank: { name: 'BCA', holder: 'Rent It Campus', account: '1234567890' }
+  },
+  HUBS: [
+    { name: 'Pos PKM Lt.1' },
+    { name: 'Kantin FIB & Teknik' },
+    { name: 'Kurir Kampus Express' }
+  ]
+};
+window.RIC.store = {
+  money: (n) => 'Rp ' + Math.round(Number(n) || 0).toLocaleString('id-ID'),
+  humanDate: (iso) => {
+    const d = iso ? new Date(String(iso).slice(0, 10) + 'T00:00:00') : new Date();
+    if (Number.isNaN(d.getTime())) return String(iso || '-');
+    return d.toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
+  }
+};
+</script>
+<script src="js/contract.js"></script>
 </body></html>

@@ -116,11 +116,52 @@ function buildContractText(){
  if(!lastBooking)return '';
  return `SURAT PERJANJIAN SEWA - RENT IT CAMPUS\nNo: ${lastBooking.code}\n\nPihak 1 (Penyedia): Rent It Campus, Pos PKM Lt.1\nPihak 2 (Penyewa): ${lastBooking.name} (${lastBooking.email})\n\nBarang: ${lastBooking.brand} - ${lastBooking.item}\nAdd-on: ${lastBooking.addons.join('; ')||'-'}\nDurasi: ${lastBooking.days} hari mulai ${lastBooking.date}\nHub: ${lastBooking.hub}\nTotal: ${lastBooking.total}\n\nPasal 1: Penyewa wajib tunjukkan KTM/KTP fisik + E-Tiket saat ambil.\nPasal 2: Keterlambatan denda 50%/hari. Kerusakan ringan cover asuransi jika ambil proteksi.\nPasal 3: Kehilangan/gadai = ganti 100% harga pasar + proses kampus.\nPasal 4: Unit diganti 2 jam jika malfungsi (Priority Support).\n\nTanda tangan digital sah. Unduh & bawa saat pengambilan.\n\nPenyewa: ${lastBooking.name}`;
 }
-function previewContract(){const el=document.getElementById('contract-text');el.innerText=buildContractText();el.classList.toggle('hidden');}
+function previewContract(){
+ if(!lastBooking)return showToast('Belum ada booking untuk dipreview','info');
+ const api=window.RIC&&window.RIC.contract;
+ if(!api)return showToast('Generator PDF belum termuat — muat ulang halaman','info');
+ try{
+  const res=api.open(buildPdfBooking());
+  showToast(res&&res.opened?'Preview PDF dibuka di tab baru':(res&&res.downloaded?'Popup diblokir — PDF diunduh otomatis':'Preview gagal dibuka'),'success');
+ }catch(err){console.error('[RIC] preview PDF gagal',err);showToast('Gagal membuat preview PDF: '+err.message,'info');}
+}
 function downloadContract(){
- const blob=new Blob([buildContractText()],{type:'text/plain'});
- const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`Kontrak-${lastBooking.code}.txt`;a.click();
- showToast('Kontrak diunduh!','success');
+ if(!lastBooking)return showToast('Belum ada booking untuk diunduh','info');
+ const api=window.RIC&&window.RIC.contract;
+ if(!api)return showToast('Generator PDF belum termuat — muat ulang halaman','info');
+ try{
+  const name=api.download(buildPdfBooking());
+  showToast('Kontrak diunduh: '+name,'success');
+ }catch(err){console.error('[RIC] unduh PDF gagal',err);showToast('Gagal mengunduh PDF: '+err.message,'info');}
+}
+/** Susun objek booking sesuai struktur yang dibaca js/contract.js dari data lastBooking. */
+function buildPdfBooking(){
+ const b=lastBooking;
+ const days=Number(b.days)||1;
+ const sub=currentSelectedSubModel,prod=currentSelectedProduct;
+ let daily=sub?sub.price:0;
+ if(sub&&prod&&prod.isPeakSeason)daily=Math.round(daily*1.2);
+ if(!daily){
+  const totalNum=parseInt(String(b.total).replace(/[^0-9]/g,''),10)||0;
+  daily=days>0?Math.round(totalNum/days):totalNum;
+ }
+ const addons=(prod?prod.addons:[]).filter(a=>(b.addons||[]).indexOf(a.name)>-1).map(a=>({name:a.name,price:a.price}));
+ const lines=[{title:prod?prod.title:b.item,variantName:b.item,qty:1,unitPrice:daily,addons:addons}];
+ const subtotal=daily*days+addons.reduce((s,a)=>s+(a.price*days),0);
+ const totalNum=parseInt(String(b.total).replace(/[^0-9]/g,''),10)||subtotal;
+ const key=String(b.code||'')+String(b.total||'')+days+String(b.date||'');
+ let h=0;for(let i=0;i<key.length;i++){h=((h<<5)-h+key.charCodeAt(i))|0;}
+ return {
+  code:b.code,
+  createdAt:new Date().toISOString(),
+  date:b.date,
+  days:days,
+  customer:{name:b.name,email:b.email},
+  hub:{name:b.hub},
+  items:lines,
+  quote:{lines:lines,subtotal:subtotal,promo:null,deposit:0,total:totalNum,peak:!!(prod&&prod.isPeakSeason)},
+  hash:(h>>>0).toString(16).padStart(8,'0')
+ };
 }
 function closeTicketModal(){closeModal('ticket-modal');}
 function copyTicketCode(){navigator.clipboard.writeText(document.getElementById('ticket-code').innerText);showToast('Kode disalin!','info');}
