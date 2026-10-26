@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Daftar - Rent It Campus</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>tailwind.config={theme:{extend:{fontFamily:{sans:['Inter','sans-serif']},colors:{brand:{teal:'#0d9488',tealDark:'#0f766e',navy:'#0f172a',slate:'#1e293b',accent:'#14b8a6'}}}}}</script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body class="login-page">
+
+<div id="toast-container" class="fixed top-6 right-5 z-[110] flex flex-col space-y-3 pointer-events-none"></div>
+
+<main class="login-shell">
+
+  <!-- ============================= KOLOM KIRI: HERO ============================= -->
+  <section class="login-hero">
+
+    <header class="login-hero-header">
+      <a href="index.html" class="login-logo">
+        <span class="login-logo-mark"><i class="fa-solid fa-laptop-code"></i></span>
+        <span class="login-logo-text">
+          <span class="login-logo-title">RENT IT <span class="login-logo-accent">CAMPUS</span></span>
+          <span class="login-logo-tagline">Equipment Sharing Platform</span>
+        </span>
+      </a>
+      <a href="index.html" class="login-back-btn">
+        <i class="fa-solid fa-arrow-left"></i>
+        <span>Back to Website</span>
+      </a>
+    </header>
+
+    <div class="login-hero-body">
+      <span class="login-hero-badge">
+        <span class="login-hero-badge-dot"></span>
+        #1 Solusi Sewa Kampus
+      </span>
+
+      <h1 class="login-hero-headline">
+        <span class="login-hero-headline-line">Join Rent It Campus.</span>
+        <span class="login-hero-headline-sub">Start renting smart today.</span>
+      </h1>
+
+      <p class="login-hero-subtext">
+        Buat akun dalam satu menit &mdash; cukup data dasar, tanpa upload dokumen. Langsung bisa sewa perangkat kampus dan dapat 50 poin pertama.
+      </p>
+
+      <ul class="login-hero-points">
+        <li class="hero-point"><i class="fa-solid fa-circle-check"></i><span>Ambil langsung di Hub kampus atau diantar kurir.</span></li>
+        <li class="hero-point"><i class="fa-solid fa-circle-check"></i><span>Kontrak sewa PDF resmi untuk setiap booking.</span></li>
+        <li class="hero-point"><i class="fa-solid fa-circle-check"></i><span>Poin loyalty: 100 poin = diskon 10% otomatis.</span></li>
+      </ul>
+    </div>
+
+    <footer class="login-hero-footer">
+      <p class="login-hero-footnote">&copy; 2026 Rent It Campus &mdash; Pos PKM Lt.1, Blok 6 BMC</p>
+    </footer>
+
+  </section>
+
+  <!-- ============================ KOLOM KANAN: PANEL DAFTAR ============================ -->
+  <section class="login-panel">
+    <div class="login-card">
+
+      <div class="login-card-header">
+        <h2 class="login-title">Create an Account</h2>
+        <p class="login-subtitle">Daftar sekali untuk mulai sewa perangkat kampus, kumpulkan poin, dan terbitkan kontrak digital.</p>
+      </div>
+
+      <form id="form-register" class="login-form" onsubmit="handleRegisterPage(event)">
+
+        <div class="form-field">
+          <label for="register-name" class="form-label">Full Name</label>
+          <div class="form-input-wrap">
+            <i class="form-icon fa-regular fa-user"></i>
+            <input id="register-name" name="name" type="text" required autocomplete="name"
+                   placeholder="Nama lengkap kamu" class="form-input">
+          </div>
+        </div>
+
+        <div class="form-field">
+          <label for="register-email" class="form-label">Email</label>
+          <div class="form-input-wrap">
+            <i class="form-icon fa-regular fa-envelope"></i>
+            <input id="register-email" name="email" type="email" required autocomplete="email"
+                   placeholder="nama@kampus.ac.id" class="form-input">
+          </div>
+        </div>
+
+        <div class="form-field form-field--password">
+          <label for="register-password" class="form-label">Password</label>
+          <div class="form-input-wrap">
+            <i class="form-icon fa-solid fa-lock"></i>
+            <input id="register-password" name="password" type="password" required autocomplete="new-password"
+                   placeholder="Minimal 6 karakter" class="form-input">
+            <button type="button" class="form-toggle-password" aria-label="Tampilkan password">
+              <i class="fa-regular fa-eye"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="login-options">
+          <label for="register-terms" class="remember-me">
+            <input id="register-terms" name="terms" type="checkbox" class="remember-checkbox">
+            <span class="remember-label">Saya setuju Syarat &amp; Ketentuan</span>
+          </label>
+        </div>
+
+        <button type="submit" class="login-submit">Sign Up</button>
+      </form>
+
+      <div class="login-divider">
+        <span class="divider-line"></span>
+        <span class="divider-text">atau</span>
+        <span class="divider-line"></span>
+      </div>
+
+      <button type="button" class="google-btn">
+        <i class="fa-brands fa-google"></i>
+        <span class="google-btn-label">Continue with Google</span>
+      </button>
+
+      <p class="login-signup-text">
+        Already have an account? <a href="login.html" class="signup-link">Log in here</a>
+      </p>
+
+    </div>
+  </section>
+
+</main>
+
+<!-- Dependensi generator kontrak: jsPDF (engine PDF) + QRCode (blok verifikasi) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+<script src="js/app.js"></script>
+
+<!-- Global RIC: data perusahaan/hub + store helpers yang dibaca js/contract.js -->
+<script>
+window.RIC = window.RIC || {};
+window.RIC.data = {
+  COMPANY: {
+    brand: 'Rent It Campus',
+    name: 'Rent It Campus',
+    legalName: 'Rent It Campus — Pos PKM Lt.1, Blok 6 BMC',
+    tagline: 'Equipment Sharing Platform',
+    email: 'halo@rentitcampus.id',
+    website: 'rentitcampus.id',
+    phone: '+62 812-0000-0000',
+    address: 'Pos PKM Lt.1, Blok 6 BMC, Kampus Universitas',
+    representative: 'Koordinator Rent It Campus',
+    representativeRole: 'Penanggung Jawab Sewa',
+    jurisdiction: 'Wilayah Kampus',
+    docVersion: '1.0',
+    bank: { name: 'BCA', holder: 'Rent It Campus', account: '1234567890' }
+  },
+  HUBS: [
+    { name: 'Pos PKM Lt.1' },
+    { name: 'Kantin FIB & Teknik' },
+    { name: 'Kurir Kampus Express' }
+  ]
+};
+window.RIC.store = {
+  money: (n) => 'Rp ' + Math.round(Number(n) || 0).toLocaleString('id-ID'),
+  humanDate: (iso) => {
+    const d = iso ? new Date(String(iso).slice(0, 10) + 'T00:00:00') : new Date();
+    if (Number.isNaN(d.getTime())) return String(iso || '-');
+    return d.toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
+  }
+};
+</script>
+<script src="js/contract.js"></script>
+</body>
+</html>

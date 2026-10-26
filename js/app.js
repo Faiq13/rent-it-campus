@@ -61,33 +61,47 @@ function handleLogin(e){
  if(isLoginPage())setTimeout(()=>{window.location.href='index.html';},700);
 }
 function isLoginPage(){return !!document.querySelector('.login-page')||/login\.html$/i.test(window.location.pathname);}
-// Halaman login: tombol ikon mata untuk tampilkan/sembunyikan password
+// Halaman auth (login/register): tombol ikon mata untuk tampilkan/sembunyikan password.
+// Input diambil dari .form-input-wrap terdekat, jadi berlaku untuk #login-pass maupun #register-password.
 function initPasswordToggle(){
- const btn=document.querySelector('.form-toggle-password');if(!btn)return;
- const input=document.getElementById('login-pass');if(!input)return;
- const icon=btn.querySelector('i');
- const sync=()=>{
-  const hidden=input.type==='password';
-  btn.setAttribute('aria-label',hidden?'Tampilkan password':'Sembunyikan password');
-  btn.setAttribute('aria-pressed',String(!hidden));
-  if(icon){icon.classList.toggle('fa-eye',hidden);icon.classList.toggle('fa-eye-slash',!hidden);}
- };
- btn.addEventListener('click',()=>{input.type=input.type==='password'?'text':'password';sync();});
- sync();
+ document.querySelectorAll('.form-toggle-password').forEach((btn)=>{
+  const wrap=btn.closest('.form-input-wrap')||btn.parentElement;
+  const input=wrap?wrap.querySelector('input'):null;if(!input)return;
+  const icon=btn.querySelector('i');
+  const sync=()=>{
+   const hidden=input.type==='password';
+   btn.setAttribute('aria-label',hidden?'Tampilkan password':'Sembunyikan password');
+   btn.setAttribute('aria-pressed',String(!hidden));
+   if(icon){icon.classList.toggle('fa-eye',hidden);icon.classList.toggle('fa-eye-slash',!hidden);}
+  };
+  btn.addEventListener('click',()=>{input.type=input.type==='password'?'text':'password';sync();});
+  sync();
+ });
 }
-// Halaman login: tombol Google & link daftar belum punya backend/OAuth.
-// Ditangkap agar tidak berpindah halaman tanpa hasil, lalu beri info lewat toast.
+// Halaman auth: tombol Google belum punya OAuth. Ditangkap agar tidak berpindah
+// halaman tanpa hasil, lalu beri info lewat toast.
 function initLoginPlaceholders(){
  const google=document.querySelector('.google-btn');
  if(google)google.addEventListener('click',(e)=>{
   e.preventDefault();
   showToast('Fitur Login dengan Google sedang dalam pengembangan','info');
  });
- const signup=document.querySelector('.signup-link');
- if(signup)signup.addEventListener('click',(e)=>{
-  e.preventDefault();
-  showToast('Halaman pendaftaran segera hadir','info');
- });
+}
+// Halaman register.html: simpan akun ke ric_users (localStorage) lalu arahkan ke login.
+function handleRegisterPage(e){
+ e.preventDefault();
+ const nameEl=document.getElementById('register-name');
+ const emailEl=document.getElementById('register-email');
+ const passEl=document.getElementById('register-password');
+ if(!nameEl||!emailEl||!passEl)return;
+ const name=nameEl.value.trim(),email=emailEl.value.trim(),pass=passEl.value;
+ if(!name||!email||!pass)return showToast('Lengkapi nama, email, dan password dulu','info');
+ const users=getUsers();
+ if(users.find(u=>u.email===email))return showToast('Email sudah terdaftar, silakan login','info');
+ users.push({name,email,pass,category:'Mahasiswa Kampus',points:50});
+ saveUsers(users);
+ showToast('Pendaftaran berhasil, silakan login','success');
+ setTimeout(()=>{window.location.href='login.html';},700);
 }
 function handleLogout(){localStorage.removeItem('ric_session');updateAuthUI();showToast('Logout berhasil','info');}
 function updateAuthUI(){
