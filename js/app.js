@@ -14,7 +14,7 @@ const getUsers=()=>JSON.parse(localStorage.getItem('ric_users')||'[]');
 const saveUsers=u=>localStorage.setItem('ric_users',JSON.stringify(u));
 const getSession=()=>JSON.parse(localStorage.getItem('ric_session')||'null');
 
-document.addEventListener('DOMContentLoaded',()=>{renderProducts(products);initEventListeners();setTodayDateDefault();initPasswordToggle();updateAuthUI();});
+document.addEventListener('DOMContentLoaded',()=>{renderProducts(products);initEventListeners();setTodayDateDefault();initPasswordToggle();initLoginPlaceholders();updateAuthUI();});
 
 function renderProducts(items){
  const c=document.getElementById('product-container');if(!c)return;
@@ -74,6 +74,20 @@ function initPasswordToggle(){
  };
  btn.addEventListener('click',()=>{input.type=input.type==='password'?'text':'password';sync();});
  sync();
+}
+// Halaman login: tombol Google & link daftar belum punya backend/OAuth.
+// Ditangkap agar tidak berpindah halaman tanpa hasil, lalu beri info lewat toast.
+function initLoginPlaceholders(){
+ const google=document.querySelector('.google-btn');
+ if(google)google.addEventListener('click',(e)=>{
+  e.preventDefault();
+  showToast('Fitur Login dengan Google sedang dalam pengembangan','info');
+ });
+ const signup=document.querySelector('.signup-link');
+ if(signup)signup.addEventListener('click',(e)=>{
+  e.preventDefault();
+  showToast('Halaman pendaftaran segera hadir','info');
+ });
 }
 function handleLogout(){localStorage.removeItem('ric_session');updateAuthUI();showToast('Logout berhasil','info');}
 function updateAuthUI(){
