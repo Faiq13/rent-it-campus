@@ -14,7 +14,7 @@ const getUsers=()=>JSON.parse(localStorage.getItem('ric_users')||'[]');
 const saveUsers=u=>localStorage.setItem('ric_users',JSON.stringify(u));
 const getSession=()=>JSON.parse(localStorage.getItem('ric_session')||'null');
 
-document.addEventListener('DOMContentLoaded',()=>{renderProducts(products);initEventListeners();setTodayDateDefault();updateAuthUI();});
+document.addEventListener('DOMContentLoaded',()=>{renderProducts(products);initEventListeners();setTodayDateDefault();initPasswordToggle();updateAuthUI();});
 
 function renderProducts(items){
  const c=document.getElementById('product-container');if(!c)return;
@@ -32,7 +32,7 @@ function initEventListeners(){
   const cat=btn.dataset.cat;renderProducts(cat==='all'?products:products.filter(p=>p.category===cat));
  }));
  ['global-search','mobile-search'].forEach(id=>{const el=document.getElementById(id);if(el)el.addEventListener('input',e=>{const q=e.target.value.toLowerCase();renderProducts(products.filter(p=>p.title.toLowerCase().includes(q)||p.brand.toLowerCase().includes(q)));});});
- document.getElementById('mobile-menu-btn').onclick=()=>document.getElementById('mobile-menu').classList.toggle('hidden');
+ const mmBtn=document.getElementById('mobile-menu-btn'),mmMenu=document.getElementById('mobile-menu');if(mmBtn&&mmMenu)mmBtn.onclick=()=>mmMenu.classList.toggle('hidden');
 }
 function setTodayDateDefault(){const d=document.getElementById('rental-date');if(d){const t=new Date();t.setDate(t.getDate()+1);d.value=t.toISOString().split('T')[0];}}
 
@@ -57,13 +57,30 @@ function handleLogin(e){
  const u=getUsers().find(u=>u.email===email&&u.pass===pass);if(!u)return showToast('Email/password salah','info');
  localStorage.setItem('ric_session',JSON.stringify({email:u.email,name:u.name,category:u.category,points:u.points}));
  updateAuthUI();closeAuthModal();showToast(`Selamat datang ${u.name}!`,'success');
+ // Berhasil login di halaman login.html -> kembali ke beranda
+ if(isLoginPage())setTimeout(()=>{window.location.href='index.html';},700);
+}
+function isLoginPage(){return !!document.querySelector('.login-page')||/login\.html$/i.test(window.location.pathname);}
+// Halaman login: tombol ikon mata untuk tampilkan/sembunyikan password
+function initPasswordToggle(){
+ const btn=document.querySelector('.form-toggle-password');if(!btn)return;
+ const input=document.getElementById('login-pass');if(!input)return;
+ const icon=btn.querySelector('i');
+ const sync=()=>{
+  const hidden=input.type==='password';
+  btn.setAttribute('aria-label',hidden?'Tampilkan password':'Sembunyikan password');
+  btn.setAttribute('aria-pressed',String(!hidden));
+  if(icon){icon.classList.toggle('fa-eye',hidden);icon.classList.toggle('fa-eye-slash',!hidden);}
+ };
+ btn.addEventListener('click',()=>{input.type=input.type==='password'?'text':'password';sync();});
+ sync();
 }
 function handleLogout(){localStorage.removeItem('ric_session');updateAuthUI();showToast('Logout berhasil','info');}
 function updateAuthUI(){
  const s=getSession();
- const html=s?`<span class="text-sm font-bold">Hi, ${s.name.split(' ')[0]} (${s.points} poin)</span><button onclick="handleLogout()" class="bg-slate-100 px-4 py-2 rounded-full text-xs font-bold">Logout</button>`:`<button onclick="openAuthModal()" class="bg-brand-navy text-white px-6 py-2.5 rounded-full text-sm font-semibold">Masuk / Daftar</button>`;
- document.getElementById('nav-auth-area').innerHTML=html;
- document.getElementById('nav-auth-area-mobile').innerHTML=html;
+ const html=s?`<span class="text-sm font-bold">Hi, ${s.name.split(' ')[0]} (${s.points} poin)</span><button onclick="handleLogout()" class="bg-slate-100 px-4 py-2 rounded-full text-xs font-bold">Logout</button>`:`<a href="login.html" class="inline-block bg-brand-navy text-white px-6 py-2.5 rounded-full text-sm font-semibold">Masuk / Daftar</a>`;
+ const nav=document.getElementById('nav-auth-area');if(nav)nav.innerHTML=html;
+ const navMobile=document.getElementById('nav-auth-area-mobile');if(navMobile)navMobile.innerHTML=html;
  const lp=document.getElementById('loyalty-point-display');if(lp)lp.innerText=s?`${s.points} Poin (${s.name})`:'Login dulu';
 }
 function openAuthModal(){openModal('auth-modal');}function closeAuthModal(){closeModal('auth-modal');}
@@ -165,6 +182,6 @@ function buildPdfBooking(){
 }
 function closeTicketModal(){closeModal('ticket-modal');}
 function copyTicketCode(){navigator.clipboard.writeText(document.getElementById('ticket-code').innerText);showToast('Kode disalin!','info');}
-function openModal(id){const m=document.getElementById(id);m.classList.remove('hidden');setTimeout(()=>m.classList.add('active'),10);}
-function closeModal(id){const m=document.getElementById(id);m.classList.remove('active');setTimeout(()=>m.classList.add('hidden'),200);}
+function openModal(id){const m=document.getElementById(id);if(!m)return;m.classList.remove('hidden');setTimeout(()=>m.classList.add('active'),10);}
+function closeModal(id){const m=document.getElementById(id);if(!m)return;m.classList.remove('active');setTimeout(()=>m.classList.add('hidden'),200);}
 function showToast(msg,type='info'){const c=document.getElementById('toast-container');const t=document.createElement('div');t.className='toast-item bg-slate-900 text-white text-sm px-4 py-3 rounded-2xl flex space-x-2';t.innerHTML=`<span>${msg}</span>`;c.appendChild(t);setTimeout(()=>t.remove(),3000);}
