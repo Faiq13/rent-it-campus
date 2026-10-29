@@ -38,9 +38,9 @@ export function Footer({ onNavigate }: FooterProps) {
           </nav>
         </div>
 
-        <div className="mt-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 text-xs text-black/40">
-          <p>© 2026 Rent It Campus. Dibangun untuk mahasiswa.</p>
-          <p>Jakarta · Bandung · Surabaya</p>
+        <div className="mt-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 text-xs text-black/50">
+          <p>© 2026 Rent It Campus — Platform Persewaan Elektronik & Tech Mahasiswa UIN Gusdur Pekalongan.</p>
+          <p>Kampus 1 Panjang · Kampus 2 Kajen · Pekalongan</p>
         </div>
       </div>
     </footer>

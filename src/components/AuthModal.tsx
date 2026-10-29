@@ -13,12 +13,12 @@ interface AuthModalProps {
 }
 
 const FACULTIES = [
-  'Fakultas Teknik',
-  'Fakultas Ilmu Komputer',
-  'Fakultas Ekonomi & Bisnis',
-  'Fakultas Ilmu Sosial',
-  'Fakultas Sains',
-  'Fakultas Desain',
+  'Fakultas Sains dan Teknologi (FST)',
+  'Fakultas Tarbiyah dan Ilmu Keguruan (FTIK)',
+  'Fakultas Ekonomi dan Bisnis Islam (FEBI)',
+  'Fakultas Syariah (FASYA)',
+  'Fakultas Ushuluddin, Adab, dan Dakwah (FUAD)',
+  'Pascasarjana',
 ]
 
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/

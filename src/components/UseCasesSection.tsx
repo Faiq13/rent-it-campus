@@ -22,44 +22,45 @@ export function UseCasesSection({ onLearnMore }: UseCasesSectionProps) {
               Use modes
             </h2>
             <p className="text-black/60 text-base leading-relaxed max-w-sm">
-              Rent It Campus powers student organizations, video creators, research labs, and event hosts needing reliable tech hardware without buying.
+              Rent It Campus mendukung kegiatan BEM, UKM, pembuatan konten kreatif mahasiswa, dan pameran teknologi UIN Gusdur Pekalongan.
             </p>
           </div>
           
           {/* Right column */}
-          <div className="relative rounded-3xl overflow-hidden min-h-[720px]">
+          <div className="relative rounded-3xl overflow-hidden min-h-[720px] bg-black/5 border border-black/10">
             <video
               autoPlay
               muted
               loop
               playsInline
               className="absolute inset-0 w-full h-full object-cover"
-              poster="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&auto=format&fit=crop"
+              poster="https://images.unsplash.com/photo-1531482615713-2afd69097998?w=1200&auto=format&fit=crop"
             >
               <source
-                src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260423_183428_ab5e672a-f608-4dcb-b319-f3e040f02e2d.mp4"
+                src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WeAreGoingOnBullrun.mp4"
                 type="video/mp4"
               />
               Your browser does not support the video tag.
             </video>
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
             
             {/* Overlay content */}
-            <div className="relative z-10 p-10 md:p-12">
+            <div className="absolute bottom-0 left-0 right-0 z-10 p-10 md:p-12 text-white">
               <h3 
-                className="text-4xl md:text-5xl font-medium leading-tight mb-5"
+                className="text-4xl md:text-5xl font-medium leading-tight mb-3"
                 style={{ letterSpacing: '-0.03em' }}
               >
-                Campus Events & Projects
+                Kegiatan & Pameran Kampus
               </h3>
               
-              <p className="text-black/70 text-base max-w-md mb-8 leading-relaxed">
-                Power seminars, organization expos, and thesis presentations with high-lumen projectors, professional camera setups, and high-performance laptops.
+              <p className="text-white/80 text-base max-w-md mb-8 leading-relaxed">
+                Sukseskan seminar fakultas, expo organisasi mahasiswa, sidang skripsi, dan produksi video kreatif dengan proyektor terang serta kamera profesional.
               </p>
               
               <button onClick={onLearnMore} className="inline-flex items-center gap-3 group">
-                <span className="text-black/80 font-medium">Learn more</span>
-                <div className="w-9 h-9 rounded-full bg-white/80 backdrop-blur flex items-center justify-center group-hover:bg-white transition-colors">
-                  <ArrowRight className="w-4 h-4 text-black" />
+                <span className="text-white font-medium">Learn more</span>
+                <div className="w-9 h-9 rounded-full bg-white/25 backdrop-blur flex items-center justify-center group-hover:bg-white/40 transition-colors">
+                  <ArrowRight className="w-4 h-4 text-white" />
                 </div>
               </button>
             </div>

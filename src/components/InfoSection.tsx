@@ -38,7 +38,7 @@ export function InfoSection({ onDiscover }: InfoSectionProps) {
         {/* Row 2: 4-col card grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {/* Card 1: Student-Friendly Pricing */}
-          <div className="rounded-2xl overflow-hidden bg-cover bg-center col-span-1 sm:col-span-2 lg:col-span-2 min-h-80" style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1280&auto=format&fit=crop)' }}>
+          <div className="rounded-2xl overflow-hidden bg-white border border-black/10 col-span-1 sm:col-span-2 lg:col-span-2 min-h-80 transition-all duration-300 hover:-translate-y-1 hover:shadow-md hover:border-black">
             <div className="p-7 min-h-80 flex flex-col justify-between">
               <div>
                 <h3 className="text-black text-2xl font-medium leading-snug mb-2" style={{ letterSpacing: '-0.02em' }}>
@@ -47,29 +47,29 @@ export function InfoSection({ onDiscover }: InfoSectionProps) {
               </div>
               <div>
                 <p className="text-black/70 text-base max-w-xs leading-relaxed">
-                  Flexible daily, weekly, or semester-long rentals tailored for student budgets and thesis deadlines.
+                  Flexible daily, weekly, or semester-long rentals tailored for student budgets and thesis deadlines UIN Gusdur.
                 </p>
               </div>
             </div>
           </div>
           
           {/* Card 2: Zero Repair & Maintenance */}
-          <div className="rounded-2xl bg-[#1E1B2E] p-7 min-h-80 flex flex-col justify-between">
-            <h3 className="text-white text-2xl font-medium leading-snug mb-2" style={{ letterSpacing: '-0.02em' }}>
+          <div className="rounded-2xl bg-white border border-black/10 p-7 min-h-80 flex flex-col justify-between transition-all duration-300 hover:-translate-y-1 hover:shadow-md hover:border-black">
+            <h3 className="text-black text-2xl font-medium leading-snug mb-2" style={{ letterSpacing: '-0.02em' }}>
               Zero Repair<br />& Maintenance.
             </h3>
-            <p className="text-white/60 text-base max-w-xs leading-relaxed">
-              Full coverage included. We maintain, update, and protect all devices so you can focus on your work.
+            <p className="text-black/60 text-base max-w-xs leading-relaxed">
+              Full coverage included. Kami merawat dan melindungi perangkat sehingga Anda bisa fokus kuliah.
             </p>
           </div>
           
           {/* Card 3: Instant Campus Delivery */}
-          <div className="rounded-2xl bg-[#1E1B2E] p-7 min-h-80 flex flex-col justify-between">
-            <h3 className="text-white text-2xl font-medium leading-snug mb-2" style={{ letterSpacing: '-0.02em' }}>
+          <div className="rounded-2xl bg-white border border-black/10 p-7 min-h-80 flex flex-col justify-between transition-all duration-300 hover:-translate-y-1 hover:shadow-md hover:border-black">
+            <h3 className="text-black text-2xl font-medium leading-snug mb-2" style={{ letterSpacing: '-0.02em' }}>
               Instant Campus<br />Delivery.
             </h3>
-            <p className="text-white/60 text-base max-w-xs leading-relaxed">
-              Pick up from certified campus hubs or get devices delivered directly to your faculty within hours.
+            <p className="text-black/60 text-base max-w-xs leading-relaxed">
+              Ambil langsung di hub Kampus 1 Panjang, Kampus 2 Kajen, atau diantar ke fakultas.
             </p>
           </div>
         </div>

@@ -64,25 +64,25 @@ export function CategoriesSection({ onSelect }: CategoriesSectionProps) {
               <button
                 key={category.name}
                 onClick={() => onSelect(category.name)}
-                className="group text-left rounded-2xl bg-white border border-black/5 p-7 min-h-56 flex flex-col justify-between transition-colors duration-200 hover:bg-[#1E1B2E]"
+                className="group text-left rounded-2xl bg-white border border-black/10 p-7 min-h-56 flex flex-col justify-between transition-all duration-300 hover:-translate-y-1 hover:shadow-md hover:border-black"
               >
                 <div className="flex items-start justify-between">
-                  <div className="rounded-full bg-[#F5F5F5] p-3 text-black transition-colors group-hover:bg-white/10 group-hover:text-white">
+                  <div className="rounded-full bg-[#F5F5F5] p-3 text-black transition-colors">
                     <Icon className="w-6 h-6" />
                   </div>
-                  <ArrowUpRight className="w-5 h-5 text-black/30 transition-colors group-hover:text-white" />
+                  <ArrowUpRight className="w-5 h-5 text-black/40 transition-colors group-hover:text-black" />
                 </div>
                 <div>
                   <h3
-                    className="text-black text-2xl font-medium mb-1 transition-colors group-hover:text-white"
+                    className="text-black text-2xl font-medium mb-1"
                     style={{ letterSpacing: '-0.02em' }}
                   >
                     {category.name}
                   </h3>
-                  <p className="text-black/60 text-sm leading-relaxed mb-3 transition-colors group-hover:text-white/60">
+                  <p className="text-black/60 text-sm leading-relaxed mb-3">
                     {category.blurb}
                   </p>
-                  <span className="text-black/40 text-xs transition-colors group-hover:text-white/40">
+                  <span className="text-black/50 text-xs">
                     {category.count} tersedia
                   </span>
                 </div>

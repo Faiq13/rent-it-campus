@@ -19,41 +19,46 @@ export function HeroSection({ onExplore }: HeroSectionProps) {
   return (
     <section className="flex-1 px-6 pt-20 pb-6 flex items-end">
       <div className="max-w-[88rem] mx-auto w-full">
-        <div className="relative w-full rounded-2xl overflow-hidden" style={{ height: 'calc(100vh - 96px)' }}>
-          {/* Background Video */}
+        <div className="relative w-full rounded-2xl overflow-hidden bg-[#F5F5F5] border border-black/10 shadow-sm" style={{ height: 'calc(100vh - 96px)' }}>
+          {/* Background Visual / Video */}
           <video
             autoPlay
             muted
             loop
             playsInline
-            className="absolute inset-0 w-full h-full object-cover"
-            poster="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&auto=format&fit=crop"
+            className="absolute inset-0 w-full h-full object-cover opacity-85"
+            poster="https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=1600&auto=format&fit=crop"
           >
             <source 
-              src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260423_161253_c72b1869-400f-45ed-ac0c-52f68c2ed5bd.mp4" 
+              src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4" 
               type="video/mp4" 
             />
             Your browser does not support the video tag.
           </video>
+          <div className="absolute inset-0 bg-gradient-to-r from-[#F5F5F5]/95 via-[#F5F5F5]/80 to-transparent pointer-events-none" />
           
           {/* Content Overlay */}
           <div className="relative z-10 flex flex-col items-start justify-start h-full p-12 pt-36">
+            <span className="inline-block px-3.5 py-1.5 mb-6 text-xs font-semibold uppercase tracking-wider bg-black text-white rounded-full shadow-sm">
+              UIN K.H. Abdurrahman Wahid Pekalongan
+            </span>
+
             <h1 
               className="text-black text-5xl md:text-6xl font-medium leading-tight max-w-xl mb-4"
               style={{ letterSpacing: '-0.04em' }}
             >
               High-End Tech<br/>
-              For Campus Life
+              Untuk Kuliah & Organisasi
             </h1>
             
             <p 
-              className="text-black/70 text-base md:text-lg max-w-md mb-8 leading-relaxed"
+              className="text-black/75 text-base md:text-lg max-w-md mb-8 leading-relaxed"
               style={{ fontFamily: "'Inter', ui-sans-serif, system-ui, sans-serif" }}
             >
-              Affordable, flexible electronics rental for students. Laptops, cameras, projectors, and gaming gear delivered straight to your campus hub.
+              Sewa laptop, kamera, proyektor, dan perangkat kreatif khusus mahasiswa UIN Gusdur. Ambil langsung di hub kampus atau antar ke fakultas.
             </p>
             
-            <button onClick={onExplore} className="pill-button">
+            <button onClick={onExplore} className="pill-button shadow-md">
               Explore Catalog
               <div className="bg-white rounded-full p-2">
                 <ArrowRight className="w-5 h-5 text-black" />

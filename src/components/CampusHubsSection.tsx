@@ -7,28 +7,28 @@ interface CampusHubsSectionProps {
 
 const hubs = [
   {
-    name: 'Hub Fakultas Teknik',
-    building: 'Gedung A, Lantai 1',
+    name: 'Hub Kampus 1 Panjang',
+    building: 'Jl. Kusuma Bangsa No.9, Pekalongan Utara (Gedung Rektorat & FTIK/FEBI)',
     hours: '08.00 - 20.00',
-    stock: 'Laptop, kamera, proyektor',
+    stock: 'Laptop, kamera, proyektor, perlengkapan podcast',
   },
   {
-    name: 'Hub Perpustakaan Pusat',
-    building: 'Lantai Ground, dekat lobi',
-    hours: '08.00 - 18.00',
-    stock: 'Laptop, iPad, proyektor',
-  },
-  {
-    name: 'Hub Student Center',
-    building: 'Gedung Organisasi, Lantai 2',
-    hours: '09.00 - 21.00',
-    stock: 'Gaming, kamera, drone',
-  },
-  {
-    name: 'Hub Fakultas Ilmu Komputer',
-    building: 'Gedung C, Lantai 3',
+    name: 'Hub Kampus 2 Kajen',
+    building: 'Jl. Pahlawan, Rowolaku, Kajen, Kab. Pekalongan (FST & FASYA)',
     hours: '08.00 - 19.00',
-    stock: 'Laptop, proyektor, kamera',
+    stock: 'Laptop, iPad, proyektor, drone, alat lab',
+  },
+  {
+    name: 'Hub Gedung Student Center',
+    building: 'Pusat Kegiatan Mahasiswa & Sekretariat BEM / UKM UIN Gusdur',
+    hours: '09.00 - 21.00',
+    stock: 'Gaming gear, kamera event, sound & drone',
+  },
+  {
+    name: 'Hub Perpustakaan Utama',
+    building: 'Gedung Perpustakaan Terpadu Lantai Ground',
+    hours: '08.00 - 18.00',
+    stock: 'Laptop riset, tablet, e-reader, proyektor seminar',
   },
 ]
 
