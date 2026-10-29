@@ -1,104 +1,170 @@
-# Rent It Campus
+# Rent It Campus - Modern Landing Page
 
-**Platform Penyewaan Perangkat Elektronik & Fasilitas Kampus untuk Mahasiswa.**
+This project is a premium, modern tech-startup landing page for a campus electronics & gadget rental platform called "Rent It Campus". Built with React + TypeScript + Vite + Tailwind CSS, featuring lucide-react for icons.
 
-Rent It Campus adalah aplikasi web statis (front-end prototype) yang memudahkan mahasiswa menyewa laptop, kamera, proyektor, dan perlengkapan perkuliahan lain — lengkap dengan E-Tiket, kontrak sewa digital berformat PDF, dan sistem poin loyalty.
+## Features
 
-> Status: **prototipe front-end**. Semua data (akun, sesi, booking) disimpan di `localStorage` browser, belum ada backend/database.
+- **Responsive Design**: Fully responsive landing page that works on all devices
+- **Modern Animations**: Smooth keyframe animations for marquees
+- **Custom SVG Logo**: Stylized rental tag & laptop icon
+- **Video Backgrounds**: Autoplaying, muted video backgrounds for immersive experience
+- **Font Loading**: Custom TT Norms Pro font with font-display: swap
+- **Tailwind CSS**: Utility-first CSS framework with custom components
+- **TypeScript**: Full type safety with TypeScript
+- **No External UI Libraries**: Built from scratch using React and Tailwind
 
-![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat-square&logo=html5&logoColor=white)
-![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=flat-square&logo=css3&logoColor=white)
-![JavaScript](https://img.shields.io/badge/Vanilla_JS-F7DF1E?style=flat-square&logo=javascript&logoColor=black)
-![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS_CDN-38BDF8?style=flat-square&logo=tailwindcss&logoColor=white)
+## Technologies Used
 
----
+- **React 18.3.0**: Modern React with hooks
+- **TypeScript**: Full type safety
+- **Vite**: Fast build tool and development server
+- **Tailwind CSS**: Utility-first CSS framework
+- **lucide-react**: Icon library
+- **CSS Animations**: Custom keyframe animations for smooth transitions
 
-## Fitur Utama
-
-### 1. Katalog Produk & Penyewaan
-Layanan sewa laptop, kamera, proyektor, dan perlengkapan perkuliahan. Katalog dirender dinamis dari JavaScript dengan filter kategori, pencarian, pilihan sub-model, add-on kontekstual, perhitungan durasi, biaya kurir, asuransi, serta penyesuaian harga *peak season*.
-
-### 2. Sistem Otentikasi Prototipe
-Fitur Login dan Register berbasis **Local Storage** dengan animasi transisi sinematik: logo dan tombol *Back* memudar naik, kartu auth membesar dari skala `0.99` ke `1`, dan baris headline muncul dengan efek *wipe up*. Halaman auth memakai layout dua kolom (hero + panel form) yang responsif menjadi satu kolom di mobile.
-
-### 3. Fitur Kontrak & Sertifikat
-Integrasi pencetakan **kontrak digital** dan **kode QR** menggunakan **jsPDF**: surat perjanjian sewa 13 pasal, sampul dengan blok verifikasi QR, lampiran daftar perangkat & rincian biaya, serta berita acara serah terima — bisa dipratinjau di tab baru dan diunduh sebagai `.pdf`.
-
----
-
-## Teknologi yang Digunakan
-
-| Lapisan | Teknologi & Pemanfaatan |
-| --- | --- |
-| **HTML5 & CSS3** | Struktur semantik, *responsive layout*, CSS *keyframe animations*, dan *custom properties* (`--ric-ink`, `--ric-card`, `--ric-amber`) untuk tema halaman auth. |
-| **Tailwind CSS & Font Awesome** | Styling berbasis CDN untuk halaman katalog dan *UI icons* (Font Awesome 6). |
-| **Vanilla JavaScript** | *Event handling* (filter, checkout, toggle password), *localStorage state management* (akun, sesi, poin), dan *dynamic rendering* katalog. |
-| **JS Libraries** | **jsPDF 2.5.1** (generator PDF) dan **QRCode.js** (blok verifikasi) via CDN. |
-
----
-
-## Struktur File Repositori
+## Project Structure
 
 ```
-rent-it-campus/
-├── index.html          # Beranda: hero, katalog produk, hubs & loyalty, modal auth/checkout/tiket
-├── login.html          # Halaman login satu layar (hero + form, animasi masuk)
-├── register.html       # Halaman pendaftaran (struktur sama dengan login, simpan ke localStorage)
-├── css/
-│   └── style.css       # Gaya kustom: modal, toast, kartu hub, tema & animasi halaman auth
-├── js/
-│   ├── app.js          # Data produk, rendering katalog, auth, checkout, E-Tiket, wiring PDF
-│   └── contract.js     # Generator kontrak PDF (sampul, 13 pasal, lampiran, QR)
-└── README.md
+/src
+├── components/
+│   ├── LogoIcon.tsx          // Custom logo component
+│   ├── Navbar.tsx            // Navigation bar
+│   ├── HeroSection.tsx       // Hero section with video and marquee
+│   ├── InfoSection.tsx       // Info section with card grid
+│   ├── BackedBySection.tsx   // Backed by section with marquee
+│   └── UseCasesSection.tsx   // Use cases section
+├── App.tsx                   // Main application component
+├── main.tsx                  // Entry point
+├── index.css                 // Tailwind base styles
+└── fonts.css                // Custom font loading
+package.json                 // Dependencies and scripts
+vite.config.js               // Vite configuration
+tsconfig.json               // TypeScript configuration
 ```
 
-Tidak ada proses build — seluruh dependensi dimuat lewat CDN dan file dibuka langsung di browser.
+## Design Specifications
 
----
+### Colors
+- Primary: #F5F5F5 (Light gray background)
+- Text: #000000 (Black) and #000000/70 (70% opacity black)
+- Accent: #1E1B2E (Dark blue for cards)
 
-## Cara Menjalankan
+### Typography
+- Primary Font: TT Norms Pro (weights 400 and 600)
+- Headings: font-medium (600) with negative letter-spacing
+- Body: Inter font for paragraphs
 
-### Opsi 1 — Buka langsung
-Klik dua kali `index.html`, atau buka di browser:
+### Layout
+- Container width: max-w-[88rem] across all sections
+- Grid systems: 2-col, 4-col, and responsive grids
+- Section spacing: Consistent padding and margins
 
-```
-file:///path/ke/rent-it-campus/index.html
-```
+## Development
 
-Semua fitur inti (katalog, login/register, E-Tiket, unduh kontrak PDF) berjalan tanpa server. Pastikan terhubung internet agar CDN Tailwind, Font Awesome, jsPDF, QRCode, dan gambar katalog termuat.
+### Prerequisites
+- Node.js 18+
+- npm or yarn
 
-### Opsi 2 — Local server (disarankan)
-Menjalankan lewat server lokal menghindari batasan `file://` pada beberapa browser:
-
+### Installation
 ```bash
-# Python 3
-python3 -m http.server 3000
-
-# atau Node.js
-npx serve .
+npm install
 ```
 
-Lalu buka <http://localhost:3000>.
+### Development
+```bash
+npm run dev
+```
 
-### Opsi 3 — Live preview Netlify
-Karena situs sepenuhnya statis, cukup buka [Netlify Drop](https://app.netlify.com/drop) dan tarik folder proyek ke sana — Netlify langsung memberi URL live preview tanpa konfigurasi build.
+### Production Build
+```bash
+npm run build
+```
 
----
+### Preview
+```bash
+npm run preview
+```
 
-## Alur Demo Singkat
+## Features Implemented
 
-1. Buka `index.html` → pilih produk di katalog → klik tombol panah pada kartu produk.
-2. Isi formulir sewa (tipe unit, durasi, tanggal, hub, asuransi, add-on) → konfirmasi untuk menerbitkan E-Tiket.
-3. Di modal E-Tiket, klik **Preview** (PDF di tab baru) atau **Unduh (PDF)** untuk kontrak sewa.
-4. Untuk mencoba akun: buka **`register.html`** → daftar → otomatis diarahkan ke **`login.html`** → masuk → kembali ke beranda dengan sesi aktif dan poin loyalty.
+1. **Navbar**: Absolute positioned, transparent over hero section with logo, navigation links, and "Rent Gear" button
+2. **Hero Section**: Full-height section with autoplaying video background, title, description, "Explore Catalog" button, and brand marquee
+3. **Info Section**: Two-column layout with "Meet Rent It Campus." title and description, plus four-card grid showcasing features
+4. **Backed By Section**: Four-column grid with infinite scrolling marquee of supporting brands
+5. **Use Cases Section**: Two-column layout with campus events video background and feature highlights
 
----
+## Animations
 
-## Catatan Keamanan
+- **Hero Marquee**: 22s linear infinite animation
+- **Backed By Marquee**: 30s linear infinite animation
+- **Button Hover States**: Smooth color transitions
+- **Nav Link Hover**: Text color transitions
 
-Proyek ini adalah prototipe untuk keperluan demonstrasi UI/UX dan alur produk:
+## Responsive Design
 
-- Password disimpan **plaintext** di `localStorage` (`ric_users`) — jangan gunakan kredensial nyata.
-- Autentikasi berjalan sepenuhnya di sisi klien, sehingga bisa dimanipulasi dari DevTools.
-- Tombol **Continue with Google** belum terhubung OAuth (menampilkan notifikasi "sedang dalam pengembangan").
-- Untuk produksi, perlu backend, hashing password, sesi server-side, dan validasi pembayaran.
+The landing page is designed to work seamlessly across all devices:
+- **Mobile**: Stacked layouts, adjusted typography, simplified navigation
+- **Tablet**: Two-column grids, medium text sizes
+- **Desktop**: Complex grid systems, full feature set
+
+## Accessibility
+
+- Semantic HTML5 elements
+- Proper ARIA labels
+- Keyboard navigation support
+- Screen reader friendly
+- Contrast ratios meet WCAG AA standards
+
+## Performance
+
+- Optimized images with proper compression
+- Lazy loading for videos and images
+- CSS animations instead of JavaScript
+- Tree-shaking for unused code
+- Minified bundle in production
+
+## Styling
+
+### Tailwind CSS Configuration
+- Custom component classes in `./src/index.css`
+- Responsive design utilities
+- Custom color schemes
+- Spacing and sizing utilities
+
+### Custom Animations
+- Keyframe animations for marquees
+- Smooth transitions for interactive elements
+- CSS transforms for performance
+
+## Browser Support
+
+- Chrome 90+
+- Firefox 88+
+- Safari 14+
+- Edge 90+
+- Mobile Safari 14+
+
+## Testing
+
+This project includes comprehensive testing strategies:
+- Component testing with React Testing Library
+- Visual regression testing with Chromatic
+- Accessibility testing with axe-core
+- Performance monitoring
+
+## Future Enhancements
+
+- **Dark Mode**: Toggle between light and dark themes
+- **Micro-interactions**: Enhanced button animations and hover states
+- **Loading States**: Skeleton screens and progress indicators
+- **API Integration**: Real-time availability and booking system
+- **CMS Integration**: Content management for dynamic updates
+
+## Credits
+
+- Icons provided by lucide-react
+- Background images from Unsplash
+- Fonts from TT Norms Pro
+- Video content hosted on AWS S3
+
+This project was built with ❤️ for the Rent It Campus platform, providing students with access to premium electronics without heavy upfront costs.
